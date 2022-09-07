@@ -1,4 +1,4 @@
-const PORT                  = 3000
+require('dotenv').config()
 const express               = require('express')
 const session               = require('express-session')
 const path                  = require('path')
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Express Session Setup
 app.set('trust proxy', 1)
 app.use(session({
-  secret: '6c39e088-1db0-4748-a684-74d47e39576d',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
@@ -72,9 +72,6 @@ app.get('/thankyou', (req, res, next) => {
 app.post('/api/vote', [
     validator.validateVote,
     async (req, res, next) => {
-        console.log(req.body.hairstyle)
-        console.log(req.body.voterName)
-
         req.session.prevUrl = "/api/vote"
 
         const errors = validationResult(req)
@@ -120,8 +117,8 @@ app.post('/api/vote', [
     }
 ])
 
-app.listen(PORT, err => {
+app.listen(process.env.PORT, err => {
     if(err) return console.log(err)
 
-    return console.log(`Server is listening on port ${PORT}...`)
+    return console.log(`Server is listening on port ${process.env.PORT}...`)
 })
