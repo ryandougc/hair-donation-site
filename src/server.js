@@ -1,9 +1,9 @@
 require('dotenv').config()
 const express               = require('express')
 const session               = require('express-session')
+const MongoStore            = require('connect-mongo')
 const path                  = require('path')
 const bodyParser            = require('body-parser')
-const ejs                   = require('ejs')
 const mongoose              = require('mongoose')
 
 const app                   = express()
@@ -11,7 +11,7 @@ const app                   = express()
 const validator             = require('./validators/voteValidator')
 const { validationResult }  = require('express-validator')
 
-mongoose.connect('mongodb+srv://ryandougc:Sportking11@cluster0.zgrny.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGO_URL)
 
 const voteSchema            = require('./models/vote.model')
 const hairstyleSchema       = require('./models/hairstyle.model')
@@ -26,10 +26,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Express Session Setup
 app.set('trust proxy', 1)
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URL
+      }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
 }))
 
 // EJS setup
