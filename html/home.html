@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan's Hair Donation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <iframe class="header__video" width="480" height="360"
+        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+    </iframe>
+
+    <button class="header__donate-btn">Donate</button>
+</header>
+
+<section class="blurb">
+    <h2 class="blurb__title page-title">More than just wigs</h2>
+    <p class="blurb__text page-text">
+        I have chosen to donate my hair to Wigs for Kids BC, a partner with the BC Children's Hospital. <br><br> 
+        All donations go towards creating the wigs for children who have lost their hair as a result of cancer treatment. 
+        In addition, Wigs for Kids has started helping the affected families by covering some of the costs for food, medication and transportation that is not covered by their insurance or government programs. 
+    </p>
+    <a class="blurb__learn-more-btn">
+        <p class="blurb__learn-more-btn__text page-text">Learn More</p>
+        <svg class="blurb__learn-more-btn__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </a>
+</section>
+
+<img id="woman-hair-svg" src="../public/assets/woman-hair.svg">
+<img id="woman-hair-extended-svg" src="../public/assets/woman-hair-extended.svg">
+
+<section class="poll">
+    <div class="poll__content">
+        <h1 class="poll__content__title page-title">Vote for my hairstyle</h1>
+        <p class="poll__content__description page-text">
+            Every donation allows you to vote for which hairstyle I will get after I donate my hair
+        </p>
+    
+        <form class="poll__content__form">
+            <div class="poll__content__form__select-hairstyle">
+                <div class="poll__content__form__select-hairstyle__main-styles">
+                    <p>1. Select a hairstyle</p>
+                    <div id="hairstyle-1" class="poll__content__form__select-hairstyle__main-styles__option">
+                        <input id="input-hairstyle-1" class="poll__content__form__select-hairstyle__main-styles__option__radio" type="radio" name="hairstyle" checked="false" value="mullet">
+                        <label for="input-hairstyle-1">
+                            <span class="poll__content__form__select-hairstyle__main-styles__option__text">Mullet</span>
+                        </label>
+                    </div>
+                    <div id="hairstyle-2" class="poll__content__form__select-hairstyle__main-styles__option">
+                        <input id="input-hairstyle-2" class="poll__content__form__select-hairstyle__main-styles__option__radio" type="radio" name="hairstyle" checked="false" value="mohawk">
+                        <label for="input-hairstyle-2">
+                            <span class="poll__content__form__select-hairstyle__main-styles__option__text">Mohawk</span>
+                        </label>
+                    </div>
+                </div>
+    
+                <div class="poll__content__form__select-hairstyle__seperator">
+                    - Or -
+                </div>
+    
+                <div class="poll__content__form__select-hairstyle__suggestion input-bar">
+                    <p>Suggest a hairstyle</p>
+                    <input class="poll__content__form__select-hairstyle__suggestion__input"
+                        id="hairstyleSuggestionInput"
+                        type="text" 
+                        name="hairstyleSuggestion"
+                        placeholder="Suggest a hairstyle..."
+                    >
+                    <input id="input-hairstyle-x" class="poll__content__form__select-hairstyle__main-styles__option__radio" type="radio" name="hairstyle" checked="false" autocomplete="off" hidden>
+                </div>
+            </div>
+    
+            <div class="poll__content__form__input-confirmation-number ">
+                <p>2. Donation Confirmation Number</p>
+                <input class="poll__content__form__input-confirmation-number__input" 
+                    id="donation-confirmation-input" 
+                    type="text" 
+                    name="confirmationNumber"
+                    placeholder="1234567"
+                >
+            </div>
+    
+            <button class="poll__content__form__submit-btn submit-form-complete">Cast Vote</button>
+        </form>
+    </div>
+</section>
+
+
+
+<script>
+// Custom Radio buttons for poll
+    const pollOptionCheckedClass = "poll-option-checked"
+
+    const $hairstyle1 = document.getElementById("hairstyle-1")
+    const $hairstyle2 = document.getElementById("hairstyle-2")
+    const $hairstyleSuggestionInput = document.getElementById('hairstyleSuggestionInput')
+    const $hairstyleSuggestionHiddenRadio = document.getElementById("input-hairstyle-x")
+    const $donationConfirmationInput = document.getElementById('donation-confirmation-input')
+
+    // Select the radio options
+    $hairstyle1.addEventListener("click", optionSelected)
+    $hairstyle2.addEventListener("click", optionSelected)
+
+    // watch hairtyle suggestion input. If there is any amount of text in the input, highlight it and deselect any other selected options
+    $hairstyleSuggestionInput.addEventListener('change', hairstyleSuggested)
+    $donationConfirmationInput.addEventListener('change', confirmationNoInputted)
+
+    //Watch inputs and change submit button when form complete
+    
+    function optionSelected(e) {
+        if(e.currentTarget.children[0].checked === false) {
+            e.currentTarget.children[0].checked = true
+            e.currentTarget.classList.add(pollOptionCheckedClass)
+            
+            if(e.currentTarget.id === "hairstyle-1") {
+                $hairstyle2.checked = false
+                $hairstyle2.classList.remove(pollOptionCheckedClass)
+                deselectHairtyleSuggestion()
+            } else if(e.currentTarget.id === "hairstyle-2") {
+                $hairstyle1.checked = false
+                $hairstyle1.classList.remove(pollOptionCheckedClass)
+                deselectHairtyleSuggestion()
+            }
+        }
+    }
+
+    function hairstyleSuggested(e) {
+        if(e.target.value) {
+            $hairstyleSuggestionInput.classList.add('input-complete')
+            $hairstyleSuggestionHiddenRadio.value = e.target.value
+            $hairstyleSuggestionHiddenRadio.checked = true
+
+            $hairstyle2.classList.remove(pollOptionCheckedClass)
+            $hairstyle1.classList.remove(pollOptionCheckedClass)
+        } else {
+            $hairstyleSuggestionInput.classList.remove('input-complete')
+            $hairstyleSuggestionHiddenRadio.value = ""
+            $hairstyleSuggestionHiddenRadio.checked = false
+        }
+    }
+
+    function confirmationNoInputted(e) {
+        if(e.target.value) {
+            $donationConfirmationInput.classList.add('input-complete')
+        } else {
+            $donationConfirmationInput.classList.remove('input-complete')
+        }
+    }
+
+    function deselectHairtyleSuggestion() {
+        $hairstyleSuggestionInput.classList.remove('input-complete')
+    }
+
+
+
+    // function deselectOption(elem) {
+    //     //Deselect all other options other than the current one
+    //     $hairstyle2.checked = false
+    //     $hairstyle2.classList.remove(pollOptionCheckedClass)
+    // }
+
+    
+</script>
+<script>
+    // watch the entire form. If both required sections of the poll are complete, make the submit button available
+    // If one of the section of the poll are deselected, disbale the submit button
+</script>
+</body>
+</html>

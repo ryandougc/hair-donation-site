@@ -1,0 +1,337 @@
+@import url(https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: satoshi;
+}
+
+.header {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.header:after {
+  content: "";
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #EE5253;
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: skewY(-5deg);
+  -ms-transform: skewY(-5deg);
+  transform: skewY(-5deg);
+  z-index: -1;
+}
+.header__video {
+  width: 85%;
+  margin-top: 40px;
+}
+.header__donate-btn {
+  width: 175px;
+  height: 55px;
+  border-radius: 50px;
+  border: none;
+  background-color: #FECA57;
+  margin-bottom: calc(4.3744331763vw - 27.5px);
+  text-align: center;
+  color: white;
+  font-size: 27px;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: 250ms ease;
+}
+.header__donate-btn:hover {
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px) scale(1.025);
+  transition: 250ms ease;
+}
+
+.blurb {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  color: #222F3E;
+}
+.blurb__learn-more-btn {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.blurb__learn-more-btn__text {
+  font-size: 18px;
+  font-weight: medium;
+  transition: 100ms ease;
+}
+.blurb__learn-more-btn__text:hover {
+  color: #EE5253;
+  transition: 100ms ease;
+}
+.blurb__learn-more-btn__text:hover + .blurb__learn-more-btn__icon {
+  color: #EE5253;
+  transition: 100ms ease;
+}
+.blurb__learn-more-btn__icon {
+  margin-left: 5px;
+  height: 18px;
+  color: #222F3E;
+  transition: 100ms ease;
+}
+
+.poll {
+  background-color: #FCBDA4;
+}
+.poll__content {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 650px;
+  margin-bottom: 0px;
+  padding-bottom: 50px;
+  color: #576574;
+}
+.poll__content__title {
+  margin-bottom: 10px;
+  color: white;
+}
+.poll__content__description {
+  margin-left: 8px;
+  font-size: 20px;
+}
+.poll__content__form {
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.poll__content__form p {
+  margin-bottom: 10px;
+}
+.poll__content__form__select-hairstyle__main-styles__option {
+  width: 350px;
+  height: 40px;
+  margin-bottom: 15px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+.poll__content__form__select-hairstyle__main-styles__option__radio {
+  opacity: 0;
+}
+.poll__content__form__select-hairstyle__main-styles__option__text {
+  font-size: 18px;
+  font-weight: medium;
+  line-height: 40px;
+}
+.poll__content__form__select-hairstyle__seperator {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.poll__content__form__select-hairstyle__suggestion__input {
+  width: 350px;
+  height: 40px;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  line-height: 40px;
+  color: #576574;
+  font-size: 18px;
+}
+.poll__content__form__input-confirmation-number {
+  margin-top: 50px;
+}
+.poll__content__form__input-confirmation-number__input {
+  padding-left: 15px;
+  width: 350px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  line-height: 40px;
+  color: #576574;
+  font-size: 18px;
+}
+.poll__content__form__submit-btn {
+  width: 150px;
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 75px;
+  background-color: white;
+  border-radius: 50px;
+  border: 1px solid #C8D6E5;
+  color: #C8D6E5;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 250ms ease;
+}
+
+#woman-hair-svg {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 75px;
+  z-index: -1;
+}
+
+#woman-hair-extended-svg {
+  position: absolute;
+  right: 0;
+  margin-top: 150px;
+  z-index: -1;
+}
+
+@media (min-width: 768px) {
+  .poll {
+    background-color: transparent;
+  }
+  .poll__content {
+    margin-top: 300px;
+    margin-bottom: 200px;
+    padding: 0;
+    color: #222F3E;
+  }
+  .poll__content__title {
+    color: #222F3E;
+  }
+  .poll__content__description {
+    width: 50%;
+  }
+  .poll__content__form {
+    align-items: flex-start;
+  }
+  .poll__content__form__select-hairstyle__main-styles__option {
+    border: 1px solid #C8D6E5;
+  }
+  .poll__content__form__select-hairstyle__suggestion__input {
+    border: 1px solid #C8D6E5;
+  }
+  .poll__content__form__input-confirmation-number__input {
+    border: 1px solid #C8D6E5;
+  }
+  #woman-hair-svg {
+    display: block;
+    margin-top: 100px;
+  }
+  #woman-hair-extended-svg {
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  .header {
+    height: 600px;
+  }
+  .header:after {
+    height: 600px;
+  }
+  .header__video {
+    width: 65%;
+  }
+  .blurb {
+    width: 65%;
+  }
+  .poll__content {
+    width: 65%;
+  }
+}
+@media (min-width: 1200px) {
+  .poll__content__form {
+    align-items: center;
+  }
+}
+@media (min-width: 1600px) {
+  .header__video {
+    width: 40%;
+  }
+  .blurb {
+    width: 40%;
+  }
+  .poll__content {
+    width: 40%;
+  }
+}
+.page-title {
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.page-text {
+  font-size: 18px;
+  font-weight: medium;
+  line-height: 1.65rem;
+}
+
+.poll-option-checked {
+  background-color: #1DD1A1;
+  color: white;
+  border: 1px solid #1DD1A1;
+}
+
+.input-complete {
+  border: 2px solid #1DD1A1;
+}
+
+.submit-form-complete {
+  background-color: #1DD1A1;
+  border: none;
+  color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  transition: 250ms ease;
+}
+.submit-form-complete:hover {
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px) scale(1.025);
+  transition: 250ms ease;
+}
+
+.thank-you {
+  height: 100vh;
+}
+.thank-you__content {
+  width: 85%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 100px;
+  dispaly: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #222F3E;
+}
+.thank-you__content__text {
+  font-weight: medium;
+}
+.thank-you__content__return-btn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  padding: 10px 25px;
+  display: block;
+  background-color: #1DD1A1;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.thank-you__bottom-design {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/*# sourceMappingURL=style.css.map */

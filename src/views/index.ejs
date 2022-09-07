@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan's Hair Donation</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <iframe class="header__video" width="480" height="360"
+        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+    </iframe>
+
+    <button class="header__donate-btn"><a href="">Donate</a></button>
+</header>
+<section class="blurb">
+    <h2 class="blurb__title page-title">More than just wigs</h2>
+    <p class="blurb__text page-text">
+        I have chosen to donate my hair to Wigs for Kids BC, a partner with the BC Children's Hospital. <br><br> 
+        All donations go towards creating the wigs for children who have lost their hair as a result of cancer treatment. 
+        In addition, Wigs for Kids has started helping the affected families by covering some of the costs for food, medication and transportation that is not covered by their insurance or government programs. 
+    </p>
+    <a class="blurb__learn-more-btn" href="http://wigsforkidsbc.com/" target="_blank">
+        <p class="blurb__learn-more-btn__text page-text" >Learn More</p>
+        <svg class="blurb__learn-more-btn__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </a>
+</section>
+
+<img id="woman-hair-svg" src="./assets/woman-hair.svg" alt="" srcset="">
+<img id="woman-hair-extended-svg" src="./assets/woman-hair-extended.svg" alt="" srcset="">
+
+<section class="poll">
+    <div class="poll__content">
+        <h1 class="poll__content__title page-title">Vote for my hairstyle</h1>
+        <p class="poll__content__description page-text">
+            Every donation allows you to vote for which hairstyle I will get after I donate my hair
+        </p>
+    
+        <form class="poll__content__form" action="/api/vote" method="post" name="poll">
+            <div class="poll__content__form__select-hairstyle">
+                <div class="poll__content__form__select-hairstyle">
+
+                    <% errors.forEach(error => { %>
+                        <p class="poll__content__form__select-hairstyle__error"><%= error.msg %></p>
+                    <% }) %>
+
+                    <div class="poll__content__form__select-hairstyle__main-styles">
+                        <p>1. Select a hairstyle</p>
+
+                        <% hairstyles.forEach((style, index) => { %>
+                            <div id="hairstyle-<%= index + 1 %>" class="poll__content__form__select-hairstyle__main-styles__option">
+                                <input id="input-hairstyle-<%= index + 1 %>" class="poll__content__form__select-hairstyle__main-styles__option__radio" type="radio" name="hairstyle" checked="false" value="<%= style.name %>">
+                                <label for="input-hairstyle-<%= index + 1 %>">
+                                    <span class="poll__content__form__select-hairstyle__main-styles__option__text"><%= style.name %></span>
+                                </label>
+                            </div>
+                        <% }) %>
+                    </div>
+        
+                    <div class="poll__content__form__select-hairstyle__seperator">
+                        - Or -
+                    </div>
+        
+                    <div class="poll__content__form__select-hairstyle__suggestion input-bar">
+                        <p>Suggest a hairstyle</p>
+                        <input class="poll__content__form__select-hairstyle__suggestion__input"
+                            id="hairstyleSuggestionInput"
+                            type="text" 
+                            name="hairstyleSuggestion"
+                            placeholder="Suggest a hairstyle..."
+                            autocomplete="false"
+                        >
+                        <input class="poll__content__form__select-hairstyle__suggestion__hidden-input"
+                            id="hiddenHairstyleSuggestionInputRadio"
+                            type="radio" 
+                            name="hairstyle" 
+                            hidden
+                        >
+                    </div>
+                </div>
+            </div>
+    
+            <div class="poll__content__form__input-voter-name ">
+                <p>2. Your Name</p>
+                <input class="poll__content__form__input-voter-name__input" 
+                    id="voter-name-input" 
+                    type="text" 
+                    name="voterName"
+                    placeholder="Ryan Carr"
+                >
+                <input type="hidden" name="hairstyle" checked="false" id="hiddenHairstyleSuggestionInputRadio">
+            </div>
+    
+            <button class="poll__content__form__submit-btn submit-form-complete">Cast Vote</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    // Custom Radio buttons for poll
+    const pollOptionCheckedClass = "poll-option-checked"
+
+    // Get all hairstyle options
+    const hairstyleOptions = document.querySelectorAll('.poll__content__form__select-hairstyle__main-styles__option')
+
+    // Add an eventlistener to each option
+    hairstyleOptions.forEach(option => {
+        option.addEventListener("click", optionSelected)
+    })
+
+    // Get all hairstyle option radios
+    const hairstyleOptionRadios = document.querySelectorAll('.poll__content__form__select-hairstyle__main-styles__option__radio')
+
+    const $hairstyleSuggestionInput = document.getElementById('hairstyleSuggestionInput')
+    const $hiddenHairstyleSuggestion = document.getElementById('hiddenHairstyleSuggestionInputRadio')
+    const $voterNameInput = document.getElementById('voter-name-input')
+
+
+    clearTextInputs()
+
+    // watch hairtyle suggestion input. If there is any amount of text in the input, highlight it and deselect any other selected options
+    $hairstyleSuggestionInput.addEventListener('click', hairstyleSuggestionClicked)
+    $hairstyleSuggestionInput.addEventListener('change', hairstyleSuggested)
+    $voterNameInput.addEventListener('change', voterNameInputted)
+
+    //Watch inputs and change submit button when form complete
+    function clearTextInputs() {
+        $hairstyleSuggestionInput.value=""
+        $voterNameInput.value=""
+    }
+
+    function optionSelected(e) {
+        if(e.currentTarget.children[0].checked === false) {
+            deselectOptions()
+            deselectHairtyleSuggestion()
+
+            e.currentTarget.children[0].checked = true
+            e.currentTarget.classList.add(pollOptionCheckedClass)
+        }
+    }
+
+    function hairstyleSuggested(e) {
+        if(e.target.value) {
+            $hairstyleSuggestionInput.classList.add('input-complete')
+            $hiddenHairstyleSuggestion.value = e.target.value
+            $hiddenHairstyleSuggestion.checked = true
+        } else {
+            $hairstyleSuggestionInput.classList.remove('input-complete')
+            $hiddenHairstyleSuggestion.value = ""
+            $hiddenHairstyleSuggestion.checked = false
+        }
+    }
+
+    function hairstyleSuggestionClicked(e) {
+        if(e.target.value) {
+            $hairstyleSuggestionInput.classList.add('input-complete')
+        }
+
+        deselectOptions()
+    }
+
+    function voterNameInputted(e) {
+        if(e.target.value) {
+            $voterNameInput.classList.add('input-complete')
+        } else {
+            $voterNameInput.classList.remove('input-complete')
+        }
+    }
+
+    function deselectHairtyleSuggestion() {
+        $hairstyleSuggestionInput.classList.remove('input-complete')
+    }
+
+    function deselectOptions() {
+        hairstyleOptionRadios.forEach(option => {
+                option.checked = false
+            })
+        hairstyleOptions.forEach(option => {
+            option.classList.remove(pollOptionCheckedClass)
+        })
+    }
+    
+</script>
+</body>
+</html>

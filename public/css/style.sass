@@ -1,0 +1,507 @@
+@use "sass:math"
+
+// Satoshi Font Import
+@import url(https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap)
+
+// Color Variables
+$color-dark: #222F3E
+$color-gray: #576574
+$color-light-gray: #C8D6E5
+$color-yellow: #FECA57
+$color-green: #1DD1A1
+$color-red: #EE5253
+$color-peach: #FCBDA4
+$color-blue: #54a0ff
+
+// Size Variables
+$size-header-height-mobile: 500px
+$size-header-height-full: 600px
+$size-page-title: 32px
+$height-donate-btn: 55px
+$size-input-width: 350px
+$size-content-width-mobile: 85%
+$size-content-width-md: 65%
+$size-content-width: 40%
+
+// Others
+$shadow-btn: 0px 2px 4px rgba(0,0,0,0.25)
+
+
+    
+*
+    margin: 0
+    padding: 0
+
+    box-sizing: border-box
+
+    font-family: satoshi
+
+a
+    text-decoration: none
+    color: inherit
+
+.header
+    width: 100%
+    height: $size-header-height-mobile
+
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-between
+
+    &:after
+        content: ''
+
+        width: 100%
+        height: $size-header-height-mobile
+
+        position: absolute
+
+        top: 0
+        left: 0
+
+        background: $color-red
+
+        -webkit-transform-origin: 0 0
+        -ms-transform-origin: 0 0
+        transform-origin: 0 0
+        -webkit-transform: skewY(-5deg)
+        -ms-transform: skewY(-5deg)
+        transform: skewY(-5deg)
+
+        z-index: -1
+
+    &__video
+        width: $size-content-width-mobile
+
+        margin-top: 40px
+
+    &__donate-btn
+        width: 175px
+        height: $height-donate-btn
+
+        border-radius: 50px
+        border: none
+
+        background-color: $color-yellow
+        
+        margin-bottom: calc(((100vw / math.tan(85deg)) / 2 ) - $height-donate-btn / 2) // calculate half the height of the gap that the angle creates on the right side, and subtract half the button height 
+
+        text-align: center
+        color: white
+        font-size: 27px
+        font-weight: bold
+
+        box-shadow: $shadow-btn
+
+        transition: 250ms ease
+        cursor: pointer
+
+        &:hover
+            box-shadow:0px 3px 8px rgba(0,0,0,0.25)
+
+            transform: translateY(-5px) scale(1.025)
+
+            transition: 250ms ease
+
+
+.blurb
+    width: $size-content-width-mobile
+
+    margin-left: auto
+    margin-right: auto
+    margin-top: 150px
+
+    display: flex
+    flex-direction: column
+
+    color: $color-dark
+
+    a, a:active, a:visited
+        color: $color-dark
+        text-decoration: none
+
+    &__learn-more-btn
+        margin-top: 25px
+
+        display: inline flex
+        justify-content: flex-end
+        align-items: center
+        align-self: flex-end
+
+        &__text
+            font-size:18px
+            font-weight: medium
+
+            transition: 100ms ease
+
+            &:hover
+                color: $color-red
+
+                transition: 100ms ease
+
+            &:hover + .blurb__learn-more-btn__icon
+                color: $color-red
+
+                transition: 100ms ease
+
+        &__icon
+            margin-left: 5px
+
+            height: 18px
+
+            color: $color-dark
+
+            transition: 100ms ease
+
+.poll
+    background-color: $color-peach
+
+    &__content
+        width: $size-content-width-mobile
+
+        margin-left: auto
+        margin-right: auto
+        margin-top: 650px
+        margin-bottom: 0px
+
+        padding-bottom: 50px
+
+
+
+        color: $color-gray
+
+        &__title
+            margin-bottom: 10px
+
+            color: white
+
+        &__description
+            margin-left: 8px
+
+            font-size: 20px
+
+        &__form
+            margin-top: 75px
+
+            display: flex
+            align-items: center
+            flex-direction: column
+
+            p
+                margin-bottom: 10px
+
+            &__select-hairstyle
+
+                &__main-styles
+                    &__option
+                        width: $size-input-width
+                        height: 40px
+
+                        margin-bottom: 15px
+
+                        background-color: white
+                        
+                        border: 1px solid white
+                        border-radius: 10px
+
+                        &__radio
+                            opacity: 0
+
+                        &__text
+                            font-size: 18px
+                            font-weight: medium
+                            line-height: 40px
+
+                &__seperator
+                    margin-top: 30px
+                    margin-bottom: 30px
+
+                    text-align: center
+
+                &__suggestion
+                    &__input
+                        width: $size-input-width
+                        height: 40px
+
+                        margin-bottom: 15px
+
+                        padding-left: 15px
+
+                        background-color: white
+                        
+                        border: 1px solid white
+                        border-radius: 10px
+
+                        line-height: 40px
+                        color: $color-gray
+                        font-size: 18px
+
+                        &:focus
+                            outline: none
+
+                            border: 3px solid $color-blue
+
+                            color: $color-dark
+
+                &__error
+                    color: $color-red
+
+            &__input-voter-name
+                margin-top: 50px
+
+                &__input
+                    padding-left: 15px
+                    width: $size-input-width
+                    height: 40px
+
+                    background-color: white
+                    
+                    border: 1px solid white
+                    border-radius: 10px
+
+                    line-height: 40px
+                    color: #576574
+                    font-size: 18px
+
+            &__submit-btn
+                width: 150px
+                height: 50px
+
+                display: block
+
+                margin-left: auto
+                margin-right: auto
+                margin-top: 75px
+
+                background-color: white
+
+                border-radius: 50px
+                border: 1px solid $color-light-gray
+
+                color: $color-light-gray
+                font-size: 20px
+                font-weight: bold
+
+                transition: 250ms ease
+
+                cursor: pointer
+
+
+#woman-hair-svg
+    display: none
+
+    position: absolute
+
+    right: 0
+
+    margin-top: 75px
+
+    z-index: -1
+
+#woman-hair-extended-svg    
+    position: absolute
+
+    right: 0
+
+    margin-top: 150px
+
+    z-index: -1   
+
+// Thank you page
+.message
+    height: 100vh
+
+    &__content
+        width: $size-content-width-mobile
+
+        margin-right: auto
+        margin-left: auto
+        padding-top: 100px
+
+        dispaly: flex
+        flex-direction: column
+        justify-content: space-between
+
+        color: $color-dark
+
+        &__text
+            font-weight: medium
+
+        &__return-btn
+            margin-left: auto
+            margin-right: auto
+            margin-top: 150px
+            padding: 10px 25px
+
+            display: block
+
+            background-color: $color-green
+
+            border: none
+            border-radius: 50px
+
+            color: white
+            font-size: 20px
+            font-weight: bold
+
+            box-shadow: $shadow-btn
+
+            transition: 250ms ease
+
+            cursor: pointer
+
+            &:hover
+                box-shadow:0px 3px 8px rgba(0,0,0,0.25)
+
+                transform: translateY(-5px) scale(1.025)
+                transition: 250ms ease
+
+        
+    &__bottom-design 
+        width: 100%
+
+        position: absolute
+
+        bottom: 0
+        left: 0  
+
+
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) 
+
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px)
+    .poll
+        background-color: transparent
+
+        &__content
+            margin-top: 300px
+            margin-bottom: 200px
+
+            padding: 0
+
+            color: $color-dark
+
+            &__title
+                color: $color-dark
+
+            &__description
+                width: 50%
+
+            &__form
+                align-items: flex-start
+
+                &__select-hairstyle
+                    &__main-styles
+                        &__option
+                            border: 1px solid $color-light-gray
+
+                    &__suggestion
+                        &__input
+                            border: 1px solid $color-light-gray
+
+                &__input-voter-name
+                    &__input
+                        border: 1px solid $color-light-gray
+
+    #woman-hair-svg
+        display: block
+
+        margin-top: 100px
+
+    #woman-hair-extended-svg  
+        display: none
+
+    //  Thank you page
+    .message
+        &__content
+            &__title
+                text-align: center
+
+            &__text
+                text-align: center
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px)
+    .header
+        height: $size-header-height-full
+
+        &:after
+            height: $size-header-height-full
+
+        &__video
+            width: $size-content-width-md
+    
+    .blurb
+        width: $size-content-width-md
+    
+    .poll
+        &__content
+            width: $size-content-width-md
+
+@media (min-width: 1200px)
+    .poll
+        &__content
+            &__form
+                align-items: center
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1600px)
+    .header
+        &__video
+            width: $size-content-width
+    
+    .blurb
+        width: $size-content-width
+    
+    .poll
+        &__content
+            width: $size-content-width
+            
+// Re-usables
+.page-title
+    margin-bottom: 20px
+
+    font-size: $size-page-title
+
+.page-text
+    font-size:18px
+    font-weight: medium
+    line-height: 1.65rem
+
+.poll-option-checked
+    background-color: $color-green
+
+    color: white
+
+    border: 1px solid $color-green
+
+.input-complete
+    border: 2px solid $color-green
+    
+    &:focus
+        outline: none
+
+        border: 3px solid $color-green
+
+        color: $color-dark
+    
+.submit-form-complete
+    background-color: $color-green
+
+    border: none
+
+    color: white
+
+    box-shadow: $shadow-btn
+
+    transition: 250ms ease
+
+    &:hover
+        box-shadow:0px 3px 8px rgba(0,0,0,0.25)
+
+        transform: translateY(-5px) scale(1.025)
+        transition: 250ms ease
