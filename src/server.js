@@ -68,7 +68,7 @@ app.get('/thankyou', (req, res, next) => {
 
     res.render('message.ejs', {
         message: "Thank You For Donating",
-        description: "I will be revealing the winning hairstyle on my social media on August 29th."
+        description: "I will be revealing the winning hairstyle on my social media on October 6th."
     })
 })
 
